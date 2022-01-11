@@ -23,14 +23,14 @@ public class ApplicationLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
         try {
             log.info("test retry start");
-            bookService.getBook();
+            // bookService.getBook();
             log.info("test retry end");
 
             log.info("test cache start");
-            for (int i = 0; i < 10; i++) {
-                System.out.println(formatter.format(timeService.getTime()));
-                Thread.sleep(1000);
-            }
+            // for (int i = 0; i < 10; i++) {
+            //     System.out.println(formatter.format(timeService.getTime()));
+            //     Thread.sleep(1000);
+            // }
             log.info("test cache end");
 
         } catch (Exception e) {

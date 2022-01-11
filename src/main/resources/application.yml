@@ -1,22 +1,72 @@
-server.port = 8081
+server:
+  port: 8081
+  compression:
+    enabled: true
 
-spring.application.name = testService
+spring:
+  application:
+    name: testAdminServer
+  jackson:
+    date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
+    time-zone: UTC
+  thymeleaf:
+    mode: HTML5
+  resources:
+    chain:
+      cache: true
+      enabled: true
 
-spring.boot.admin.url = http://localhost:8081
-management.security.enabled : false
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+    show-sql: true
+  #      generate-ddl: false
+  #      hibernate:
+  #        ddl-auto: create-drop
 
-spring.h2.console.enabled = true
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=MySQL;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
 
-spring.datasource.url = jdbc:h2:mem:testdb;MODE=MySQL;DB_CLOSE_DELAY=-1
-spring.datasource.driverClassName = org.h2.Driver
-spring.datasource.username = sa
-spring.datasource.password = password
+  boot:
+    admin:
+      client:
+        url: http://localhost:8081
+        instance:
+          prefer-ip: true
+        metadata:
+          user.name: ${spring.security.user.name}
+          user.password: ${spring.security.user.password}
+      notify:
+        line:
+          enabled: true
+          channelSecret: 'a7ade10bc12679a59ca6287fe9754847'
+          channelToken: 'kHd8iShwqo2zqbXqCZfHtC9THvYvEslKLxuGyojtm8SrMYMTGpRfD6a4MW2aAv30iLfK2Vu4IifHcoUH7LecygCNDNPawSdsr3LvR71QEagGMqn2owGhYqaoNIk7CSDIUlFztFRy75wR1QcOpQJRqQdB04t89/1O/w1cDnyilFU='
+          to: 'U538997192f638e299af52e35ce6ba822'
 
-spring.jpa.database-platform = org.hibernate.dialect.H2Dialect
-spring.jpa.defer-datasource-initialization = true
-#spring.jpa.hibernate.ddl-auto = create-drop
-spring.jpa.show-sql = true
-#spring.jpa.generate-ddl = false
 
-#spring.cache.cache-names = getTime, currentTimeMillis
-#spring.cache.caffeine.spec = maximumSize=100, expireAfterWrite=5s
+  security:
+    user:
+      name: admin
+      password: 123
+
+management:
+  security:
+    enabled: true
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+    enabled-by-default: true
+
+
+#spring.cache.cache-names: { getTime,currentTimeMillis }
+#spring.cache.caffeine.spec: { maximumSize=10,expireAfterWrite=5s }

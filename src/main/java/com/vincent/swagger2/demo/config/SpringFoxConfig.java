@@ -1,17 +1,7 @@
 package com.vincent.swagger2.demo.config;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import springfox.documentation.spring.data.rest.configuration.SpringDataRestConfiguration;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-@Configuration
-@EnableSwagger2
-@EnableWebMvc
-@Import(SpringDataRestConfiguration.class)
-public class SpringFoxConfig implements WebMvcConfigurer {
+// @Configuration
+public class SpringFoxConfig {
 /*
     @Bean
     public Docket createRestApi() {
