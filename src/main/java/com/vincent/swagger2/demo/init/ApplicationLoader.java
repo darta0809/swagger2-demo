@@ -27,7 +27,7 @@ public class ApplicationLoader implements CommandLineRunner {
             log.info("test retry end");
 
             log.info("test cache start");
-            for (int i = 0; i < 30; i++) {
+            for (int i = 0; i < 10; i++) {
                 System.out.println(formatter.format(timeService.getTime()));
                 Thread.sleep(1000);
             }

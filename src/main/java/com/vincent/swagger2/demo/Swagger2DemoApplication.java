@@ -1,12 +1,12 @@
 package com.vincent.swagger2.demo;
 
+import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.retry.annotation.EnableRetry;
 
 @EnableRetry
-@EnableCaching
+@EnableAdminServer
 @SpringBootApplication
 public class Swagger2DemoApplication {
 
