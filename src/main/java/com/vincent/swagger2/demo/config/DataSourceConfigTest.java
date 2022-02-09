@@ -9,6 +9,9 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 // @Configuration
 public class DataSourceConfigTest {
 
+    /**
+     * 初始化 H2 資料可在此操作，目前是關閉狀態，由服務啟動時自動新增
+     */
     @Bean
     @Primary
     public DataSource dataSource() {
