@@ -7,9 +7,9 @@ import de.codecentric.boot.admin.server.domain.events.InstanceEvent;
 import de.codecentric.boot.admin.server.domain.events.InstanceRegisteredEvent;
 import de.codecentric.boot.admin.server.domain.events.InstanceStatusChangedEvent;
 import de.codecentric.boot.admin.server.notify.AbstractEventNotifier;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.minidev.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
@@ -22,16 +22,16 @@ public class LineNotifier extends AbstractEventNotifier {
      * 繼承 AbstractStatusChangeNotifier 針對狀態改變事件發生處理
      */
 
-    @Autowired
-    private LineProperties lineProperties;
+    private final LineProperties lineProperties;
 
-    protected LineNotifier(InstanceRepository repository) {
+    public LineNotifier(LineProperties lineProperties, InstanceRepository repository) {
         super(repository);
+        this.lineProperties = lineProperties;
     }
 
     @Override
     protected Mono<Void> doNotify(InstanceEvent event, Instance instance) {
-        if (lineProperties.isEnabled() == false) {
+        if (!lineProperties.isEnabled()) {
             return Mono.empty();
         }
 
@@ -64,14 +64,11 @@ public class LineNotifier extends AbstractEventNotifier {
             String status = statusChangedEvent.getStatusInfo().getStatus();
             String msg = JSONObject.toJSONString(statusChangedEvent.getStatusInfo().getDetails());
 
-            StringBuilder str = new StringBuilder();
-            str.append("監控告警 : 【" + serviceName + "】\n");
-            str.append("【服務位置】" + serviceUrl + "\n");
-            str.append("【狀態】" + status + "\n");
-            str.append("【詳情】" + msg);
-            return Mono.fromRunnable(() -> {
-                new LinePushMessage(lineProperties).sendTextMessage(str.toString());
-            });
+            String str = "監控告警 : 【" + serviceName + "】\n" +
+                    "【服務位置】" + serviceUrl + "\n" +
+                    "【狀態】" + status + "\n" +
+                    "【詳情】" + msg;
+            return Mono.fromRunnable(() -> new LinePushMessage(lineProperties).sendTextMessage(str));
         }
         return Mono.empty();
     }

@@ -35,13 +35,8 @@ class Swagger2DemoApplicationTests {
     @Autowired
     private MockMvc mockMvc;
 
-    @Before
-    public void setUp() {
-
-    }
-
     @Test
-    public void convertSwaggerToAsciiDoc() throws Exception {
+     void convertSwaggerToAsciiDoc() throws Exception {
         this.mockMvc.perform(get("/v3/api-docs")
                 .accept(MediaType.APPLICATION_JSON))
                 // 原本的寫法
@@ -69,9 +64,9 @@ class Swagger2DemoApplicationTests {
 //                .andDo(document("test", preprocessResponse(prettyPrint())));
 //    }
 
-    class PsSwagger2MarkupHandler implements ResultHandler {
+    static class PsSwagger2MarkupHandler implements ResultHandler {
 
-        private String outputDir;
+        private final String outputDir;
         private final MarkupLanguage markupLanguage = MarkupLanguage.ASCIIDOC;
         private String examplesFolderPath;
         private final GroupBy pathsGroupedBy = GroupBy.AS_IS;

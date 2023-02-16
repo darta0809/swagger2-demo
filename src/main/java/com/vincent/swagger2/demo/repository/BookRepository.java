@@ -13,7 +13,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
     // Prevents GET /books/:id
     @Override
-    Optional<Book> findById(Integer integer);
+    Optional<Book> findById(Integer id);
 
     // Prevents GET /books
     @Override
@@ -21,10 +21,10 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
     // Prevents POST /books and PATCH /books/:id
     @Override
-    Book save(Book s);
+    Book save(Book book);
 
     // Prevents DELETE /books/:id
     @Override
     @RestResource(exported = false)
-    void delete(Book d);
+    void delete(Book book);
 }

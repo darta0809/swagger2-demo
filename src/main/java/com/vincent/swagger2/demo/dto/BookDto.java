@@ -2,9 +2,11 @@ package com.vincent.swagger2.demo.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 @ApiModel(description = "書本資料")
 public class BookDto {
 

@@ -12,8 +12,8 @@ public class GreetingController {
 
     @ApiOperation(value = "My first api", notes = "API說明文字")
     @PostMapping("/api/v1")
-    public String hello(@PathVariable String dto) {
-        System.out.println(dto);
+    public String hello(@PathVariable String test) {
+        System.out.println(test);
         return "Hello World";
     }
 }

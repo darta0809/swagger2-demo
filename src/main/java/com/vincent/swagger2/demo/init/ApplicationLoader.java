@@ -3,6 +3,7 @@ package com.vincent.swagger2.demo.init;
 import com.vincent.swagger2.demo.service.BookService;
 import com.vincent.swagger2.demo.service.TimeService;
 import java.time.format.DateTimeFormatter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -10,12 +11,11 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class ApplicationLoader implements CommandLineRunner {
 
-    @Autowired
-    private BookService bookService;
-    @Autowired
-    private TimeService timeService;
+    private final BookService bookService;
+    private final TimeService timeService;
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
